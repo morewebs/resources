@@ -1,0 +1,62 @@
+[
+  {
+    "id": "eval-install-official-component",
+    "prompt": "I'm building a Next.js app with Tailwind. Add a login form to the app.",
+    "expected_behavior": "Agent activates the skill, classifies the need as a block, sources login-03 from official shadcn/ui, and installs it with `npx shadcn@latest add login-03` instead of generating a form from scratch.",
+    "criteria": [
+      "Agent does not hand-write the form markup when a prebuilt login block exists",
+      "Agent runs the official shadcn CLI with the correct item name",
+      "Agent checks components.json exists and runs `npx shadcn@latest init` first if it doesn't"
+    ]
+  },
+  {
+    "id": "eval-greenfield-init",
+    "prompt": "Start a brand new Vite + React + Tailwind app and build the marketing landing page for a SaaS.",
+    "expected_behavior": "Agent activates the skill even though shadcn is not yet installed, runs `npx shadcn@latest init`, then sources hero/pricing/feature sections from official shadcn/ui or the free shadcnspace subset rather than generating sections from scratch.",
+    "criteria": [
+      "Agent treats greenfield as in-scope and initializes shadcn before adding items",
+      "Agent prefers official shadcn/ui before shadcnspace at each sourcing decision",
+      "Agent does not generate full landing sections from scratch when free blocks exist"
+    ]
+  },
+  {
+    "id": "eval-shadcnspace-free-filter",
+    "prompt": "I want a hero section with an animated gradient for my Tailwind app. Find me one from that shadcn space site.",
+    "expected_behavior": "Agent fetches https://shadcnspace.com/r/registry.json, filters items with meta.isPro === false, proposes only free heroes (hero-01, hero-02, hero-03, hero-33), and installs via `npx shadcn@latest add https://shadcnspace.com/r/hero-01.json` — never proposing Pro items or mentioning purchasing.",
+    "criteria": [
+      "Agent filters the registry by the isPro flag rather than guessing which items are free",
+      "Agent uses the URL registry form (no components.json registries configuration required)",
+      "Agent never recommends hero-04 through hero-52 or any paid-gated item",
+      "Agent does not mention pricing, tiers, or licenses as an option to the user"
+    ]
+  },
+  {
+    "id": "eval-paid-exclusion",
+    "prompt": "Can you set up that admin dashboard from shadcnspace? I saw it has 197+ components.",
+    "expected_behavior": "Agent declines the Admin Dashboard under the free-only rule without suggesting the user buy a license, explains it is premium-only, and offers the free alternative: official shadcn/ui dashboard blocks (dashboard-01 etc.) installed via `npx shadcn@latest add dashboard-01`.",
+    "criteria": [
+      "Agent refuses the paid-gated Admin Dashboard outright",
+      "Agent does not walk the user toward the pricing page or a purchase",
+      "Agent offers a concrete free alternative from official shadcn/ui"
+    ]
+  },
+  {
+    "id": "eval-motion-source",
+    "prompt": "Add a subtle animated number ticker and a text reveal effect to my landing page.",
+    "expected_behavior": "Agent activates the skill, classifies the need as motion, sources from animata.design (MIT, copy-paste), copies the component files into the project, and confirms the Tailwind/motion setup requirements.",
+    "criteria": [
+      "Agent uses animata.design rather than hand-writing animation logic",
+      "Agent copies component source into the project (animata has no CLI)",
+      "Agent verifies Tailwind and the optional motion/icons dependencies"
+    ]
+  },
+  {
+    "id": "eval-non-shadcn-stack",
+    "prompt": "My project uses Material UI with React. I need a nice pricing table.",
+    "expected_behavior": "Agent does not activate the skill's sourcing flow; the shadcn CLI and these sources do not apply to MUI. Agent builds or sources MUI-appropriate UI instead.",
+    "criteria": [
+      "Agent does not run the shadcn CLI in an MUI project",
+      "Agent does not install shadcn/Tailwind components into an MUI codebase"
+    ]
+  }
+]
