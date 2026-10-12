@@ -1,13 +1,13 @@
 ---
 name: ui-resource
-description: Source and install prebuilt React UI from free shadcn-compatible resources instead of generating from scratch — official shadcn/ui components and blocks, the free subset of shadcnspace.com (isPro-filtered), React Bits animated components, and animata.design motion components. Activate when building or extending UI in any React/Tailwind project (Next.js, Vite, Remix, TanStack Start), greenfield or existing.
+description: Source and install prebuilt React UI from free shadcn-compatible resources instead of generating from scratch — official shadcn/ui components and blocks, the free subset of shadcnspace.com (isPro-filtered), React Bits animated components, animata.design motion components, and GSAP (free animation engine) for custom motion. Activate when building or extending UI in any React/Tailwind project (Next.js, Vite, Remix, TanStack Start), greenfield or existing.
 ---
 
 # UI Resource — Sourcing Prebuilt React UI
 
 ## Overview
 
-When building React UI, do not generate components from scratch. Source them from a known, free set and install them with the official shadcn CLI. Agents produce better UI working from a known component set than by improvising markup.
+When building React UI, do not generate components from scratch. Source them from a known, free set and install them with the official shadcn CLI. Agents produce better UI working from a known component set than by improvising markup. When no prebuilt piece exists, write custom motion with the GSAP engine (below) rather than hand-rolled scroll listeners or ad-hoc keyframes.
 
 **Free-only rule (hard boundary):** never recommend, install, or link paid-gated content. Excluded outright: shadcnspace Pro blocks, all shadcnspace Pages, the shadcnspace Admin Dashboard, and everything on React Bits' separate Pro site (pro.reactbits.dev, including its paid Agent Kit). Never suggest the user buy a license or walk them into a paywall. If an item's free status cannot be verified, treat it as paid and use another source.
 
@@ -35,7 +35,7 @@ Do **not** activate for non-shadcn stacks — Material UI, Chakra, Mantine, or c
    3. React Bits (dramatic motion: animated text, WebGL backgrounds, 3D, micro-interactions)
    4. animata.design (everyday UI motion with accessibility, pure MIT)
 
-   For motion needs, sources 3 and 4 are complementary — pick by character: decorative, dramatic effects → React Bits; functional UI motion with accessibility needs → animata.
+   For motion needs, sources 3 and 4 are complementary — pick by character: decorative, dramatic effects → React Bits; functional UI motion with accessibility needs → animata. If no source has a prebuilt fit, build custom motion with GSAP — the animation engine below — not raw scroll listeners or keyframe soup.
 3. **Install** via the source's mechanism (below).
 4. **Verify**: imports resolve, dependencies installed, component renders in the page it was placed in.
 
@@ -86,6 +86,16 @@ Free templates (Crypgo, Typefolio, Resume) install the same way; all Pages requi
 - Setup: Tailwind CSS required; `motion` and Lucide/Radix icons optional per component.
 - Source repo: https://github.com/codse/animata
 
+## Animation Engine — GSAP (custom motion)
+
+When none of the sources has a prebuilt fit, write custom motion with GSAP (GreenSock Animation Platform, https://gsap.com, repo https://github.com/greensock/GSAP) — the industry-standard JavaScript animation engine, powering 12M+ sites. Some React Bits components already run on it (their CLI auto-installs `gsap` when a component needs it).
+
+**100% free since April 2025.** Webflow (which acquired GreenSock in late 2024) made GSAP entirely free — including every formerly paid Club GreenSock plugin: ScrollTrigger, ScrollSmoother, SplitText, MorphSVG, DrawSVG, Flip, Draggable, and the rest. Commercial use included, Webflow customer or not.
+
+- Install: `npm install gsap` (or pnpm/yarn/bun). In React, also `npm install @gsap/react` and use its `useGSAP()` hook — a drop-in replacement for `useEffect`/`useLayoutEffect` that handles cleanup.
+- Signature capabilities: timelines (sequence tweens with labels and offsets), ScrollTrigger (pinning, scrubbing, parallax, scroll-driven storytelling), SplitText (character/word/line reveal animations), SVG morphing and drawing.
+- Docs: https://gsap.com/docs/v3 (includes a React guide covering `useGSAP` patterns).
+
 ## Glossary
 
 shadcnspace's own taxonomy — classify before searching:
@@ -101,6 +111,8 @@ shadcnspace's own taxonomy — classify before searching:
 | **Dashboard** | The bundled Admin Dashboard kit | Premium-only — excluded |
 
 Note: shadcnspace's MCP server uses a different internal taxonomy (14 categories: hero, features, pricing, testimonials, faq, cta, header, footer, stats, forms, content, ecommerce, ai, widgets) than the site's navigation. Match on item names and `isPro` flags, not category labels.
+
+**GSAP terms:** a *tween* animates a target from one state to another; a *timeline* sequences tweens; *ScrollTrigger* ties playback to scroll position; *SplitText* splits text into characters/words/lines for staggered reveals.
 
 ## Optional — shadcnspace MCP Server
 
@@ -121,6 +133,7 @@ Separately, the official shadcn MCP server (`npx shadcn@latest mcp init --client
 - **Official shadcn/ui** — MIT.
 - **animata.design** — MIT.
 - **React Bits** — MIT + Commons Clause: free for personal and commercial use, including selling apps built with the components; selling or redistributing the components themselves (alone, bundled, or ported) is not permitted (https://github.com/DavidHDev/react-bits/blob/main/LICENSE.md).
+- **GSAP** — custom "Standard 'no charge' license" (https://gsap.com/standard-license): fully free including commercial use; not MIT.
 - **shadcnspace.com** — a custom proprietary license (their homepage claims "MIT" but the license page at https://shadcnspace.com/license does not say that). Free resources may be used in personal, commercial, and client projects, including selling projects built with the code; retain the copyright notice; do not resell the resources as standalone products.
 
 ## Troubleshooting

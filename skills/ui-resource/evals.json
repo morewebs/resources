@@ -62,6 +62,17 @@
     ]
   },
   {
+    "id": "eval-gsap-custom-motion",
+    "prompt": "Build a landing page where the hero text reveals word by word on scroll and a section pins while the user scrolls through three feature panels.",
+    "expected_behavior": "Agent first checks the free sources for prebuilt pieces (e.g. React Bits animated text); for the scroll-pinning sequence with no prebuilt fit, it builds custom motion with GSAP — ScrollTrigger for pinning/scrubbing and SplitText for the reveal — using the useGSAP() hook from @gsap/react.",
+    "criteria": [
+      "Agent checks prebuilt sources (React Bits, animata) before writing custom animation",
+      "Agent uses GSAP ScrollTrigger for pinning/scrub rather than IntersectionObserver or raw scroll listeners",
+      "Agent uses useGSAP() from @gsap/react for React integration and cleanup",
+      "Agent treats GSAP and all plugins as free and proposes no paid alternatives"
+    ]
+  },
+  {
     "id": "eval-non-shadcn-stack",
     "prompt": "My project uses Material UI with React. I need a nice pricing table.",
     "expected_behavior": "Agent does not activate the skill's sourcing flow; the shadcn CLI and these sources do not apply to MUI. Agent builds or sources MUI-appropriate UI instead.",
