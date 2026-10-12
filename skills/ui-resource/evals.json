@@ -43,11 +43,22 @@
   {
     "id": "eval-motion-source",
     "prompt": "Add a subtle animated number ticker and a text reveal effect to my landing page.",
-    "expected_behavior": "Agent activates the skill, classifies the need as motion, sources from animata.design (MIT, copy-paste), copies the component files into the project, and confirms the Tailwind/motion setup requirements.",
+    "expected_behavior": "Agent activates the skill and splits the needs by character: the number ticker (functional widget) from animata.design (copy-paste, MIT); the text reveal (dramatic text animation) from React Bits via `npx shadcn@latest add @react-bits/<Name>-TS-TW`. No hand-written animation logic.",
     "criteria": [
-      "Agent uses animata.design rather than hand-writing animation logic",
-      "Agent copies component source into the project (animata has no CLI)",
-      "Agent verifies Tailwind and the optional motion/icons dependencies"
+      "Agent sources the ticker from animata.design rather than hand-writing it",
+      "Agent sources the text reveal from React Bits via the @react-bits shadcn CLI namespace with a valid variant suffix",
+      "Agent copies animata component source into the project (animata has no CLI)",
+      "Agent verifies Tailwind and the per-component dependencies"
+    ]
+  },
+  {
+    "id": "eval-react-bits-background",
+    "prompt": "I want a wow-factor animated 3D background for my landing page hero.",
+    "expected_behavior": "Agent activates the skill, classifies the need as a dramatic animated effect, sources a Backgrounds component from React Bits (free tier, reactbits.dev), and installs it via `npx shadcn@latest add @react-bits/<Name>-TS-TW`, letting the CLI auto-install declared dependencies (three, motion, gsap).",
+    "criteria": [
+      "Agent uses a React Bits Backgrounds component rather than hand-writing WebGL/animation code",
+      "Agent installs via the @react-bits namespace with a variant suffix matching the project (e.g. -TS-TW)",
+      "Agent stays on reactbits.dev only — never proposes anything from pro.reactbits.dev or mentions pricing"
     ]
   },
   {

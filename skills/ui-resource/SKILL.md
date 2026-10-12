@@ -1,6 +1,6 @@
 ---
 name: ui-resource
-description: Source and install prebuilt React UI from free shadcn-compatible resources instead of generating from scratch — official shadcn/ui components and blocks, the free subset of shadcnspace.com (isPro-filtered), and animata.design motion components. Activate when building or extending UI in any React/Tailwind project (Next.js, Vite, Remix, TanStack Start), greenfield or existing.
+description: Source and install prebuilt React UI from free shadcn-compatible resources instead of generating from scratch — official shadcn/ui components and blocks, the free subset of shadcnspace.com (isPro-filtered), React Bits animated components, and animata.design motion components. Activate when building or extending UI in any React/Tailwind project (Next.js, Vite, Remix, TanStack Start), greenfield or existing.
 ---
 
 # UI Resource — Sourcing Prebuilt React UI
@@ -9,7 +9,7 @@ description: Source and install prebuilt React UI from free shadcn-compatible re
 
 When building React UI, do not generate components from scratch. Source them from a known, free set and install them with the official shadcn CLI. Agents produce better UI working from a known component set than by improvising markup.
 
-**Free-only rule (hard boundary):** never recommend, install, or link paid-gated content. Excluded outright: shadcnspace Pro blocks, all shadcnspace Pages, and the shadcnspace Admin Dashboard. Never suggest the user buy a license or walk them into a paywall. If an item's free status cannot be verified, treat it as paid and use another source.
+**Free-only rule (hard boundary):** never recommend, install, or link paid-gated content. Excluded outright: shadcnspace Pro blocks, all shadcnspace Pages, the shadcnspace Admin Dashboard, and everything on React Bits' separate Pro site (pro.reactbits.dev, including its paid Agent Kit). Never suggest the user buy a license or walk them into a paywall. If an item's free status cannot be verified, treat it as paid and use another source.
 
 ## When to Activate
 
@@ -32,7 +32,10 @@ Do **not** activate for non-shadcn stacks — Material UI, Chakra, Mantine, or c
 2. **Pick the source by hierarchy** — always try the earlier source first:
    1. Official shadcn/ui (backbone, 100% free, MIT)
    2. shadcnspace.com free subset (variants, when official doesn't have the look)
-   3. animata.design (motion/animation)
+   3. React Bits (dramatic motion: animated text, WebGL backgrounds, 3D, micro-interactions)
+   4. animata.design (everyday UI motion with accessibility, pure MIT)
+
+   For motion needs, sources 3 and 4 are complementary — pick by character: decorative, dramatic effects → React Bits; functional UI motion with accessibility needs → animata.
 3. **Install** via the source's mechanism (below).
 4. **Verify**: imports resolve, dependencies installed, component renders in the page it was placed in.
 
@@ -60,9 +63,24 @@ A namespace form (`npx shadcn@latest add @shadcn-space/<name>`) is documented by
 
 Free templates (Crypgo, Typefolio, Resume) install the same way; all Pages require a license and are excluded by the free-only rule.
 
-## Source 3 — animata.design (motion)
+## Source 3 — React Bits (animated effects)
 
-156+ hand-crafted animated React components (text, widgets, buttons, cards, backgrounds). MIT licensed. No CLI — copy-paste only: copy the file into the project and it's owned from there.
+215 free animated React components in five categories — Text Animations, Animations, Components, Micro Interactions, Backgrounds — including WebGL/3D backgrounds (three.js) and GSAP-driven effects. Installs as source you own.
+
+- Browse: https://reactbits.dev (repo: https://github.com/DavidHDev/react-bits)
+- Install with the official shadcn CLI — React Bits is listed in the official registry directory, so the namespace resolves with no extra configuration:
+  ```
+  npx shadcn@latest add @react-bits/SplitText-TS-TW
+  ```
+- Every component has four slugs — JS/TS × CSS/Tailwind, chosen by suffix (`SplitText-JS-CSS`, `SplitText-JS-TW`, `SplitText-TS-CSS`, `SplitText-TS-TW`). In a TypeScript + Tailwind project use `-TS-TW`.
+- Alternative CLI: `npx jsrepo@latest add https://reactbits.dev/r/SplitText-TS-TW` — same source, different installer.
+- Per-component dependencies (motion, gsap, three, @hugeicons) are declared in each registry item and auto-installed by the CLI.
+- Everything on reactbits.dev is free with no account; the Pro product is a separate site (pro.reactbits.dev) and is excluded by the free-only rule.
+- If a slug 404s, take the exact name from the component's page on reactbits.dev — not every index name resolves as a registry slug.
+
+## Source 4 — animata.design (everyday UI motion)
+
+156+ hand-crafted animated React components for everyday UI — buttons, cards, widgets, lists, graphs, skeletons — with accessibility built in (keyboard focus, screen-reader labels, reduced-motion fallbacks). MIT licensed. Copy-paste first: copy the file into the project and it's owned from there.
 
 - Browse: https://animata.design (19 categories)
 - Setup: Tailwind CSS required; `motion` and Lucide/Radix icons optional per component.
@@ -96,10 +114,13 @@ Claude Code: `claude mcp add shadcnspace-mcp -- npx -y shadcnspace-mcp@latest`
 
 Useful tools: `listFreeBlocks` (free blocks only), `getBlockInstall` (install command + import path + JSX example for a given block).
 
+Separately, the official shadcn MCP server (`npx shadcn@latest mcp init --client claude` — or `--client cursor` / `--client vscode`) can browse, search, and install any registry namespace, including `@react-bits`.
+
 ## Licensing
 
 - **Official shadcn/ui** — MIT.
 - **animata.design** — MIT.
+- **React Bits** — MIT + Commons Clause: free for personal and commercial use, including selling apps built with the components; selling or redistributing the components themselves (alone, bundled, or ported) is not permitted (https://github.com/DavidHDev/react-bits/blob/main/LICENSE.md).
 - **shadcnspace.com** — a custom proprietary license (their homepage claims "MIT" but the license page at https://shadcnspace.com/license does not say that). Free resources may be used in personal, commercial, and client projects, including selling projects built with the code; retain the copyright notice; do not resell the resources as standalone products.
 
 ## Troubleshooting
